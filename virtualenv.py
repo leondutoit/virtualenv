@@ -1509,7 +1509,7 @@ def fix_local_scheme(home_dir, symlink=True):
                     copyfile(os.path.abspath(os.path.join(home_dir, subdir_name)), \
                                                             os.path.join(local_path, subdir_name), symlink)
 
-def fix_lib64(lib_dir, symlink=True):
+def fix_lib64(lib_dir, symlink=False):
     """
     Some platforms (particularly Gentoo on x64) put things in lib64/pythonX.Y
     instead of lib/pythonX.Y.  If this is such a platform we'll just create a
@@ -1538,9 +1538,9 @@ def fix_lib64(lib_dir, symlink=True):
     if os.path.lexists(lib64_link):
         return
     if symlink:
-        os.symlink('lib', lib64_link)
+        os.symlink(lib_dir, lib64_link)
     else:
-        copyfile('lib', lib64_link)
+        copyfile(lib_dir, lib64_link)
 
 def resolve_interpreter(exe):
     """
